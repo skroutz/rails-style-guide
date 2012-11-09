@@ -982,6 +982,22 @@ they will retry the match for given timeout allowing you to test ajax actions.
     end
     ```
 
+* Write expectations at a high level, removed from logic and implementation details.
+
+    ```Ruby
+    # bad
+    it "calls more_results if i=0" do
+      # ...
+    end
+
+    # good
+    context "no results are returned by the initial search" do
+      it "attempts to find more results" do
+        # ...
+      end
+    end
+    ```
+
 * Make heavy use of `describe` and `context`
 * Name the `describe` blocks as follows:
   * use "description" for non-methods
