@@ -1026,6 +1026,14 @@ they will retry the match for given timeout allowing you to test ajax actions.
 * Make heavy use of `describe` and `context`
 * Do not use a `context` for a single test
 
+* Try to keep the full spec name (concatentation of the nested descriptions)
+  grammatically correct. These rules offer one way of doing this:
+  * Top level: use `describe` with a constant name: `describe User ...`
+  * 2nd level: use `describe` with a method name: `describe "#awesome?"`
+  * Inner blocks: use a `context` that starts with `when`: `context "when user is unsubscribed"`
+  * Example describes the expectation: `it "is false"`, not `it "should be false"`
+  * Full spec name: "User#awesome? when user is unsubscribed is false"
+
 * Name the `describe` blocks as follows:
   * use "description" for non-methods
   * use pound "#method" for instance methods
