@@ -1024,6 +1024,8 @@ they will retry the match for given timeout allowing you to test ajax actions.
     ```
 
 * Make heavy use of `describe` and `context`
+* Do not use a `context` for a single test
+
 * Name the `describe` blocks as follows:
   * use "description" for non-methods
   * use pound "#method" for instance methods
