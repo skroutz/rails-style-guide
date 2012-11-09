@@ -998,6 +998,31 @@ they will retry the match for given timeout allowing you to test ajax actions.
     end
     ```
 
+* Avoid incidental state as much as possible.
+
+    ```Ruby
+    describe Article do
+      let(:article) { FactoryGirl.create(:article) }
+      let(:another_article) { FactoryGirl.create(:article) }
+
+      describe "#publish" do
+        # bad
+        it "publishes the article" do
+          article.publish
+
+          # Creating another shared Article test object above would cause this
+          # test to break
+          Article.count.should == 2
+        end
+
+        # good
+        it "publishes the article" do
+          { article.publish }.should change(Article, :count).by(1)
+        end
+      end
+    end
+    ```
+
 * Make heavy use of `describe` and `context`
 * Name the `describe` blocks as follows:
   * use "description" for non-methods
