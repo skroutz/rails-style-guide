@@ -1062,8 +1062,7 @@ they will retry the match for given timeout allowing you to test ajax actions.
     end
     ```
 
-* Use [fabricators](http://fabricationgem.org/) to create test
-  objects.
+* Use Factory Girl to create test objects.
 * Make heavy use of mocks and stubs
 
     ```Ruby
@@ -1327,7 +1326,7 @@ they will retry the match for given timeout allowing you to test ajax actions.
 ### Models
 
 * Do not mock the models in their own specs.
-* Use fabrication to make real objects.
+* Use FactoryGirl to make real objects.
 * It is acceptable to mock other models or child objects.
 * Create the model for all examples in the spec to avoid duplication.
 
@@ -1337,7 +1336,7 @@ they will retry the match for given timeout allowing you to test ajax actions.
     end
     ```
 
-* Add an example ensuring that the fabricated model is valid.
+* Add an example ensuring that the factory created model is valid.
 
     ```Ruby
     describe Article
