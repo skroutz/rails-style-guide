@@ -389,9 +389,9 @@ extension part.
 
 ## Migrations
 
-* Keep the `schema.rb` under version control.
-* Use `rake db:schema:load` instead of `rake db:migrate` to initialize
-an empty database.
+* Keep the `schema.rb` or `structure.sql` under version control.
+* Use `rake db:schema:load` or `rake db:structure:load` instead of
+  `rake db:migrate` to initialize an empty database.
 * Use `rake db:test:prepare` to update the schema of the test database.
 * Avoid setting defaults in the tables themselves (unless the db is
   shared between several applications). Use the model layer
