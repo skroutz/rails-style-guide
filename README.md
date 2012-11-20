@@ -14,13 +14,10 @@ that
 [Behaviour-Driven Development](http://en.wikipedia.org/wiki/Behavior_Driven_Development)
 (BDD) is the best way to develop software. Keep that in mind.
 
-Rails is an opinionated framework and this is an opinionated guide. In
-my mind I'm totally certain that
-[RSpec](https://www.relishapp.com/rspec) is superior to Test::Unit,
-[Sass](http://sass-lang.com/) is superior to CSS and
-[Haml](http://haml-lang.com/) ([Slim](http://slim-lang.com/)) is
-superior to Erb. So don't expect to find any Test::Unit, CSS or Erb
-advice in here.
+Rails is an opinionated framework and this is an opinionated guide. We believe
+that [RSpec](https://www.relishapp.com/rspec) is superior to Test::Unit,
+and [Scss](http://sass-lang.com/) is superior to CSS and.
+So don't expect to find any Test::Unit or CSS advice in here.
 
 Some of the advice here is applicable only to Rails 3.1+.
 
