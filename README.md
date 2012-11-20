@@ -24,6 +24,10 @@ Some of the advice here is applicable only to Rails 3.1+.
 This is the guide we use internally, for our own apps, at
 [Skroutz](http://www.skroutz.gr).
 
+You can also check out the
+[Ruby coding style guide](https://github.com/skroutz/ruby-style-guide) and the
+[CSS coding style guide](https://github.com/skroutz/css-style-guide).
+
 You can generate a PDF or an HTML copy of this guide using
 [Transmuter](https://github.com/TechnoGate/transmuter).
 
