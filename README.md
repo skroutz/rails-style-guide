@@ -1472,6 +1472,10 @@ Here is a sample spec of a [carrierwave](https://github.com/jnicklas/carrierwave
 
     ```
 
+## Above all else
+
+Follow your :heart:
+
 # Further Reading
 
 There are a few excellent resources on Rails style, that you should
