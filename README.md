@@ -5,8 +5,8 @@
 
 The goal of this guide is to present a set of best practices and style
 prescriptions for Ruby on Rails 3 development. It's a complementary
-guide to the already existing community-driven
-[Ruby coding style guide](https://github.com/bbatsov/ruby-style-guide).
+guide to the already existing
+[Ruby coding style guide](https://github.com/skroutz/ruby-style-guide).
 
 While in the guide the section [Testing Rails applications](#testing)
 is after [Developing Rails applications](#developing) I truly believe
@@ -23,6 +23,9 @@ superior to Erb. So don't expect to find any Test::Unit, CSS or Erb
 advice in here.
 
 Some of the advice here is applicable only to Rails 3.1+.
+
+This is the guide we use internally, for our own apps, at
+[Skroutz](http://www.skroutz.gr).
 
 You can generate a PDF or an HTML copy of this guide using
 [Transmuter](https://github.com/TechnoGate/transmuter).
