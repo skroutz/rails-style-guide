@@ -536,7 +536,8 @@ your application.
 * Reserve `app/assets` for custom stylesheets, javascripts, or images.
 * Third party code such as [jQuery](http://jquery.com/) or [bootstrap](http://twitter.github.com/bootstrap/)
   should be placed in `vendor/assets`.
-* When possible, use gemified versions of assets (e.g. [jquery-rails](https://github.com/rails/jquery-rails)).
+* Use [bower](http://bower.io/) to manage asset versions and dependencies and prefer it over
+  gemified versions of assets (e.g. [jquery-rails](https://github.com/rails/jquery-rails)).
 
 ## Mailers
 
