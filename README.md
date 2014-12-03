@@ -307,25 +307,25 @@ There is more than one way to achieve this:
     The default implementation returns the `id` of the record as a String. It could be overridden to include another
     human-readable attribute.
 
-        ```Ruby
+      ```Ruby
         class Person
           def to_param
             "#{id} #{name}".parameterize
           end
         end
-        ```
+      ```
         
     In order to convert this to a URL-friendly value, `parameterize` should be called on the string. The `id` of the
     object needs to be at the beginning so that it can be found by the `find` method of ActiveRecord.
 
   * Use the `friendly_id` gem. It allows creation of human-readable URLs by using some descriptive attribute of the model instead of its `id`.
 
-        ```Ruby
+      ```Ruby
         class Person
           extend FriendlyId
           friendly_id :name, use: :slugged
         end
-        ```
+      ```
 
         Check the [gem documentation](https://github.com/norman/friendly_id) for more information about its usage.
 
