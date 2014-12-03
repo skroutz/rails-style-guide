@@ -160,6 +160,9 @@ the `production` one.
 * Each controller action should (ideally) invoke only one method other
   than an initial find or new.
 * Share no more than two instance variables between a controller and a view.
+* Use Decorators to enhance your models with presentational logic,
+  [draper](https://github.com/drapergem/draper) is the suggested gem for
+  this purpose.
 
 ## Models
 
@@ -326,70 +329,32 @@ There is more than one way to achieve this:
 
         Check the [gem documentation](https://github.com/norman/friendly_id) for more information about its usage.
 
-### ActiveResource
+### Rendering Custom Formats
 
 * When the response is in a format different from the existing ones (XML and
-JSON) or some additional parsing of these formats is necessary,
-create your own custom format and use it in the class. The custom format
-should implement the following four methods: `extension`, `mime_type`,
-`encode` and `decode`.
+JSON) or some additional parsing of these formats is necessary, create your own custom renderer.
 
-    ```Ruby
-    module ActiveResource
-      module Formats
-        module Extend
-          module CSVFormat
-            extend self
+```ruby
+ActionController::Renderers.add :csv do |obj, options|
+  filename = options[:filename] || 'data'
+  str = obj.respond_to?(:to_csv) ? obj.to_csv : obj.to_s
+  send_data str, type: Mime::CSV, disposition: "attachment; filename=#{filename}.csv"
+end
+```
 
-            def extension
-              'csv'
-            end
+The renderer in action:
 
-            def mime_type
-              'text/csv'
-            end
+```ruby
+def show
+  @csvable = Csvable.find(params[:id])
+  respond_to do |format|
+    format.html
+    format.csv { render csv: @csvable, filename: @csvable.name }
+  end
+end
+```
 
-            def encode(hash, options = nil)
-              # Encode the data in the new format and return it
-            end
-
-            def decode(csv)
-              # Decode the data from the new format and return it
-            end
-          end
-        end
-      end
-    end
-
-    class User < ActiveResource::Base
-      self.format = ActiveResource::Formats::Extend::CSVFormat
-
-      ...
-    end
-    ```
-
-* If the request should be sent without extension, override the `element_path`
-and `collection_path` methods of `ActiveResource::Base` and remove the
-extension part.
-
-    ```Ruby
-    class User < ActiveResource::Base
-      ...
-
-      def self.collection_path(prefix_options = {}, query_options = nil)
-        prefix_options, query_options = split_options(prefix_options) if query_options.nil?
-        "#{prefix(prefix_options)}#{collection_name}#{query_string(query_options)}"
-      end
-
-      def self.element_path(id, prefix_options = {}, query_options = nil)
-        prefix_options, query_options = split_options(prefix_options) if query_options.nil?
-        "#{prefix(prefix_options)}#{collection_name}/#{URI.parser.escape id.to_s}#{query_string(query_options)}"
-      end
-    end
-    ```
-
-    These methods can be overridden also if any other modifications of the
-    URL are needed.
+[More about ActionController::Renderers](http://api.rubyonrails.org/classes/ActionController/Renderers.html#method-c-add)
 
 ## Migrations
 
@@ -746,10 +711,6 @@ compliant) that are useful in many Rails projects:
 * [guard](https://github.com/guard/guard) - fantastic gem that monitors file
   changes and invokes tasks based on them. Loaded with lots of useful
   extension. Far superior to autotest and watchr.
-* [haml-rails](https://github.com/indirect/haml-rails) - haml-rails provides
-  Rails integration for Haml.
-* [haml](http://haml-lang.com) - HAML is a concise templating language,
-  considered by many (including yours truly) to be far superior to Erb.
 * [kaminari](https://github.com/amatsuda/kaminari) - Great paginating solution.
 * [machinist](https://github.com/notahat/machinist) - Fixtures aren't fun.
   Machinist is.
@@ -766,10 +727,6 @@ compliant) that are useful in many Rails projects:
 * [simplecov](https://github.com/colszowka/simplecov) - code coverage tool.
   Unlike RCov it's fully compatible with Ruby 1.9. Generates great reports.
   Must have!
-* [slim](http://slim-lang.com) - Slim is a concise templating language,
-  considered by many far superior to HAML (not to mention Erb). The only thing
-  stopping me from using Slim massively is the lack of good support in major
-  editors/IDEs. Its performance is phenomenal.
 * [spork](https://github.com/sporkrb/spork) - A DRb server for testing
   frameworks (RSpec / Cucumber currently) that forks before each run to ensure
   a clean testing state. Simply put it preloads a lot of test environment and
@@ -777,6 +734,11 @@ compliant) that are useful in many Rails projects:
   must have!
 * [sunspot](https://github.com/sunspot/sunspot) - SOLR powered full-text search
   engine.
+* [active-model-serializers](https://github.com/rails-api/active_model_serializers/) -
+  Brings convention over configuration to your JSON generation.
+* [teaspoon](https://github.com/modeset/teaspoon) - A JavaScript test
+  runner built for Rails. It can run tests in the browser and headless
+using PhantomJS or Selenium WebDriver.
 
 This list is not exhaustive and other gems might be added to it along
 the road. All of the gems on the list are field tested, have active
@@ -790,7 +752,7 @@ other gems. You should avoid using them in your projects.
 * [rmagick](http://rmagick.rubyforge.org/) - this gem is notorious for its memory consumption. Use
 [minimagick](https://github.com/probablycorey/mini_magick) instead.
 * [autotest](http://www.zenspider.com/ZSS/Products/ZenTest/) - old solution for running tests automatically. Far
-inferior to guard and [watchr](https://github.com/mynyml/watchr).
+inferior to [guard](https://github.com/guard/guard) and [watchr](https://github.com/mynyml/watchr).
 * [rcov](https://github.com/relevance/rcov) - code coverage tool, not
   compatible with Ruby 1.9. Use
   [SimpleCov](https://github.com/colszowka/simplecov) instead.
